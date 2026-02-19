@@ -1,9 +1,9 @@
 /* Variables de diseño */
 :root {
-    --primario: #2c3e50;
-    --acento: #d4af37;
-    --texto-suave: #666;
-    --fondo: #fefefe;
+    --primario: #F875AA;
+    --acento: #FF8FB7;
+    --texto-suave: #313647;
+    --fondo: #F7F8F0;
     --fuente-principal: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
@@ -151,4 +151,5 @@ p {
     .btn {
         justify-content: center;
     }
+
 }
