@@ -1,0 +1,154 @@
+/* Variables de diseño */
+:root {
+    --primario: #2c3e50;
+    --acento: #d4af37;
+    --texto-suave: #666;
+    --fondo: #fefefe;
+    --fuente-principal: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--fuente-principal);
+    background-color: var(--fondo);
+    color: var(--primario);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 500px;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+/* Badge de estado */
+.status-badge {
+    display: inline-block;
+    background-color: var(--primario);
+    color: #fff;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
+}
+
+/* Tipografía */
+.logo {
+    font-size: 2.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+}
+
+.logo span {
+    color: var(--acento);
+}
+
+.divider {
+    height: 3px;
+    width: 60px;
+    background-color: var(--acento);
+    margin: 20px auto;
+}
+
+h2 {
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-bottom: 15px;
+    color: var(--primario);
+}
+
+p {
+    color: var(--texto-suave);
+    font-size: 1rem;
+}
+
+/* Pie de página */
+.footer {
+    margin-top: 50px;
+    font-size: 0.85rem;
+    color: #aaa;
+}
+
+/* Media Query para móviles pequeños */
+@media (max-width: 480px) {
+    .logo {
+        font-size: 2.2rem;
+    }
+}
+
+/* --- Estilos de Contacto --- */
+
+.social-contact {
+    margin-top: 30px;
+    border-top: 1px solid #eee;
+    padding-top: 25px;
+}
+
+.social-contact p {
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.buttons-row {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.btn i {
+    width: 18px;
+    height: 18px;
+}
+
+.whatsapp {
+    background-color: #25D366;
+    color: white;
+}
+
+.facebook {
+    background-color: #1877F2;
+    color: white;
+}
+
+/* Ajuste para móviles */
+@media (max-width: 400px) {
+    .buttons-row {
+        flex-direction: column;
+    }
+    .btn {
+        justify-content: center;
+    }
+}
