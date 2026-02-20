@@ -3,15 +3,13 @@
 function openLogin() {
     const modal = document.getElementById('loginModal');
     modal.style.display = 'flex';
-    document.getElementById('adminPass').focus();
+    document.body.style.overflow = 'hidden';
 }
 
-// Cerrar la ventana modal
 function closeLogin() {
     const modal = document.getElementById('loginModal');
     modal.style.display = 'none';
-    document.getElementById('error-msg').style.display = 'none';
-    document.getElementById('adminPass').value = '';
+    document.body.style.overflow = 'auto';
 }
 
 // Validar la contraseña
@@ -171,3 +169,5 @@ function shareSite() {
         alert("¡Enlace copiado! Ya puedes pegarlo en WhatsApp para invitar a tus amigos. 😊");
     }
 }
+
+document.getElementById('year').textContent = new Date().getFullYear();
