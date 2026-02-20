@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 | Página no encontrada</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
+</head>
+<body class="error-page">
+    <div class="glass-card animate delay-1">
+        <header>
+            <img src="/images/logo2.png" alt="Logo Blancos Kastillo" class="main-logo">
+        </header>
+        
+        <div class="error-content">
+            <h1 class="error-code bounce-animation">404</h1>
+            <div class="divider"></div>
+            <h2>¡Uy! Parece que te perdiste en las sábanas</h2>
+            <p>La página que buscas no existe o se ha movido a otra habitación.</p>
+            
+            <a href="index.html" class="link-item">
+                <i data-lucide="home"></i> Volver al inicio
+            </a>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
