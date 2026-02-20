@@ -76,3 +76,49 @@ function resetButton() {
     submitBtn.classList.remove('btn-loading');
     submitBtn.innerText = "Avisarme";
 }
+
+/* Mapa Google Maps */
+window.addEventListener('load', () => {
+    if (window.lucide) {
+        lucide.createIcons();
+    }
+});
+
+/* ---------------------------------------------------------------------------- */
+
+// * Animaciones
+const textElement = document.getElementById('typing-text');
+const phrase = "Estamos renovando tu descanso";
+let isDeleting = false;
+let charIndex = 0;
+
+function typeEffect() {
+    const currentText = phrase.substring(0, charIndex);
+    textElement.textContent = currentText;
+    textElement.classList.add('typing-cursor');
+
+    if (!isDeleting && charIndex < phrase.length) {
+        charIndex++;
+        setTimeout(typeEffect, 100); 
+    } else if (isDeleting && charIndex > 0) {
+        charIndex--;
+        setTimeout(typeEffect, 50);
+    } else {
+        isDeleting = !isDeleting;
+        const delay = !isDeleting ? 1000 : 8000; 
+        setTimeout(typeEffect, delay);
+    }
+}
+
+/* ---------------------------------------------------------------------------- */
+
+// Preloader
+document.addEventListener('DOMContentLoaded', typeEffect);
+
+window.addEventListener('load', () => {
+    const loader = document.getElementById('loader-wrapper');
+
+    setTimeout(() => {
+        loader.classList.add('loader-hidden');
+    }, 500);
+});
