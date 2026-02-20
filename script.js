@@ -1,40 +1,67 @@
+// IMPORTACIÓN DE FIREBASE
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getDatabase, ref, push, get} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 
-// Abrir la ventana modal
-function openLogin() {
+const firebaseConfig = {
+  apiKey: "AIzaSyAqfV2bNgbN2xJ7-npeo8XFfmeYqNuViP8",
+  authDomain: "blancos-kastillo.firebaseapp.com",
+  databaseURL: "https://blancos-kastillo-default-rtdb.firebaseio.com",
+  projectId: "blancos-kastillo",
+  storageBucket: "blancos-kastillo.firebasestorage.app",
+  messagingSenderId: "919945532090",
+  appId: "1:919945532090:web:5c9c6343643f50e6aae883",
+  measurementId: "G-XTHKBT9DBQ"
+};
+
+// Inicializar Firebase
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+/* --- FUNCIONES GLOBALES (ADMIN) --- */
+window.openLogin = function() {
     const modal = document.getElementById('loginModal');
-    modal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-}
-
-function closeLogin() {
-    const modal = document.getElementById('loginModal');
-    modal.style.display = 'none';
-    document.body.style.overflow = 'auto';
-}
-
-// Validar la contraseña
-function checkPass() {
-    const pass = document.getElementById('adminPass').value;
-    const errorMsg = document.getElementById('error-msg');
-
-    const SECRET_KEY = 'admin2026';
-
-    if (pass === SECRET_KEY) {
-        window.location.href = "dashboard.html";
-    } else {
-        errorMsg.style.display = 'block';
-        document.getElementById('adminPass').value = '';
+    if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
     }
 }
 
-// Permitir el uso de la tecla "Enter" para enviar
-document.addEventListener('keypress', function (e) {
+window.closeLogin = function() {
     const modal = document.getElementById('loginModal');
-    if (e.key === 'Enter' && modal.style.display === 'flex') {
-        checkPass();
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+}
+
+window.checkPass = async function() {
+    const passwordInput = document.getElementById('adminPass').value;
+    const db = getDatabase();
+
+    try {
+        const snapshot = await get(ref(db, 'adminConfig/password'));
+        
+        if (snapshot.exists() && passwordInput === snapshot.val()) {
+            localStorage.setItem('adminLoggedIn', 'true');
+            window.location.href = 'dashboard.html';
+        } else {
+            const errorMsg = document.getElementById('error-msg');
+            if (errorMsg) errorMsg.style.display = 'block';
+        }
+    } catch (error) {
+        console.error("Error de conexión:", error);
+    }
+}
+
+// Enter para el Login
+document.addEventListener('keypress', (e) => {
+    const modal = document.getElementById('loginModal');
+    if (e.key === 'Enter' && modal && modal.style.display === 'flex') {
+        window.checkPass();
     }
 });
 
+/* --- FORMULARIO Y REGISTRO (FIREBASE + FORMSPREE) --- */
 const form = document.getElementById('contact-form');
 const responseMsg = document.getElementById('response-msg');
 const submitBtn = document.getElementById('submit-btn');
@@ -43,12 +70,24 @@ if (form) {
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        submitBtn.classList.add('btn-loading');
-        submitBtn.innerText = "Enviando...";
+        if (submitBtn) {
+            submitBtn.classList.add('btn-loading');
+            submitBtn.innerText = "Enviando...";
+        }
 
-        const data = new FormData(form);
-        
+        const emailInput = document.getElementById('email-input');
+        const emailValue = emailInput ? emailInput.value : '';
+
         try {
+            // A. GUARDAR EN FIREBASE (Para el Dashboard)
+            await push(ref(db, 'registros'), {
+                email: emailValue,
+                fecha: new Date().toLocaleString(),
+                ubicacion: "Lázaro Cárdenas"
+            });
+
+            // B. ENVIAR A FORMSPREE (Para el correo)
+            const data = new FormData(form);
             const response = await fetch(form.action, {
                 method: 'POST',
                 body: data,
@@ -57,40 +96,35 @@ if (form) {
 
             if (response.ok) {
                 form.style.display = 'none'; 
-                responseMsg.style.display = 'flex';
+                if (responseMsg) responseMsg.style.display = 'flex';
                 if (window.lucide) lucide.createIcons(); 
             } else {
-                alert("Hubo un problema con el envío.");
-                resetButton();
+                throw new Error("Fallo en Formspree");
             }
         } catch (error) {
-            alert("Error de conexión.");
+            console.error("Error:", error);
+            alert("Hubo un error al procesar tu solicitud.");
             resetButton();
         }
     });
 }
 
 function resetButton() {
-    submitBtn.classList.remove('btn-loading');
-    submitBtn.innerText = "Avisarme";
+    if (submitBtn) {
+        submitBtn.classList.remove('btn-loading');
+        submitBtn.innerText = "Avisarme";
+    }
 }
 
-/* Mapa Google Maps */
-window.addEventListener('load', () => {
-    if (window.lucide) {
-        lucide.createIcons();
-    }
-});
-
-/* ---------------------------------------------------------------------------- */
-
-// * Animaciones
+/* --- ANIMACIÓN DE TEXTO --- */
 const textElement = document.getElementById('typing-text');
 const phrase = "Estamos renovando tu descanso";
 let isDeleting = false;
 let charIndex = 0;
 
 function typeEffect() {
+    if (!textElement) return; // Seguridad si no está en la página
+
     const currentText = phrase.substring(0, charIndex);
     textElement.textContent = currentText;
     textElement.classList.add('typing-cursor');
@@ -108,51 +142,54 @@ function typeEffect() {
     }
 }
 
-/* ---------------------------------------------------------------------------- */
-
-//* Preloader
-document.addEventListener('DOMContentLoaded', typeEffect);
+/* --- PRELOADER Y CARGA --- */
+document.addEventListener('DOMContentLoaded', () => {
+    typeEffect();
+    const yearElem = document.getElementById('year');
+    if (yearElem) yearElem.textContent = new Date().getFullYear();
+});
 
 window.addEventListener('load', () => {
     const loader = document.getElementById('loader-wrapper');
-
-    setTimeout(() => {
-        loader.classList.add('loader-hidden');
-    }, 500);
+    if (loader) {
+        setTimeout(() => {
+            loader.classList.add('loader-hidden');
+        }, 500);
+    }
+    if (window.lucide) lucide.createIcons();
 });
 
-/* ---------------------------------------------------------------------------- */
-
-//* Modo Oscuro / Modo Claro
+/* --- MODO OSCURO --- */
 const themeToggle = document.getElementById('theme-toggle');
 const themeIcon = document.getElementById('theme-icon');
-const currentTheme = localStorage.getItem('theme');
 
-if (currentTheme === 'dark') {
-    document.documentElement.setAttribute('data-theme', 'dark');
-    themeIcon.setAttribute('data-lucide', 'sun');
-}
+if (themeToggle && themeIcon) {
+    const currentTheme = localStorage.getItem('theme');
 
-themeToggle.addEventListener('click', () => {
-    let theme = document.documentElement.getAttribute('data-theme');
-    
-    if (theme === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'light');
-        localStorage.setItem('theme', 'light');
-        themeIcon.setAttribute('data-lucide', 'moon');
-    } else {
+    if (currentTheme === 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark');
-        localStorage.setItem('theme', 'dark');
         themeIcon.setAttribute('data-lucide', 'sun');
+        if (window.lucide) lucide.createIcons();
     }
 
-    lucide.createIcons();
-});
+    themeToggle.addEventListener('click', () => {
+        let theme = document.documentElement.getAttribute('data-theme');
+        
+        if (theme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            localStorage.setItem('theme', 'light');
+            themeIcon.setAttribute('data-lucide', 'moon');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+            themeIcon.setAttribute('data-lucide', 'sun');
+        }
+        if (window.lucide) lucide.createIcons();
+    });
+}
 
-/* ---------------------------------------------------------------------------- */
-
-//* Share website
-function shareSite() {
+/* --- COMPARTIR --- */
+window.shareSite = function() {
     const shareData = {
         title: 'Blancos Kastillo 🏠',
         text: '¡Hola! Mira lo nuevo que viene para el hogar en Lázaro Cárdenas. Renueva tu descanso con Blancos Kastillo. ✨🛌',
@@ -160,14 +197,9 @@ function shareSite() {
     };
 
     if (navigator.share) {
-        navigator.share(shareData)
-            .then(() => console.log('Contenido compartido con éxito'))
-            .catch((error) => console.log('Error al compartir:', error));
+        navigator.share(shareData).catch(err => console.log(err));
     } else {
-        // Fallback para computadoras
         navigator.clipboard.writeText(window.location.href);
-        alert("¡Enlace copiado! Ya puedes pegarlo en WhatsApp para invitar a tus amigos. 😊");
+        alert("¡Enlace copiado! Ya puedes pegarlo en WhatsApp. 😊");
     }
 }
-
-document.getElementById('year').textContent = new Date().getFullYear();
