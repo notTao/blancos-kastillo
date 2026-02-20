@@ -21,6 +21,8 @@ body {
     justify-content: center;
     align-items: center;
     background: linear-gradient(135deg, var(--color-1) 0%, var(--color-2) 50%, var(--color-3) 100%);
+    padding: 40px 0;
+    margin: 0;
 }
 
 .glass-card {
@@ -34,6 +36,7 @@ body {
     max-width: 480px;
     width: 90%;
     box-shadow: 0 15px 35px rgba(245, 175, 175, 0.2);
+    margin: auto;
 }
 
 /* Logo */
@@ -271,4 +274,177 @@ h2 {
 .btn-loading {
     opacity: 0.7;
     pointer-events: none;
+}
+
+/* ---------------------------------------------------------------------------- */
+
+/* Sección de Ubicación */
+.location-section {
+    margin-top: 1rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--color-3);
+}
+
+.location-info {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.location-info h3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--texto);
+    font-weight: 500;
+}
+
+.location-info p {
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 5px;
+}
+
+.map-container {
+    width: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(245, 175, 175, 0.1);
+    line-height: 0;
+}
+
+.map-container iframe {
+    filter: grayscale(0.3) sepia(0.1) brightness(0.95);
+    transition: all 0.5s ease;
+}
+
+.map-container iframe:hover {
+    filter: grayscale(0) sepia(0) brightness(1);
+    transform: scale(1.01);
+}
+
+/* ---------------------------------------------------------------------------- */
+
+/* Animaciones */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.animate {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+.delay-3 { animation-delay: 0.6s; }
+.delay-4 { animation-delay: 0.8s; }
+.delay-5 { animation-delay: 1.0s; }
+
+.main-logo {
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.main-logo:hover {
+    transform: scale(1.05) rotate(2deg);
+}
+
+.typing-text {
+    display: inline-block;
+    border-right: 3px solid #F5AFAF;
+    white-space: nowrap;
+    overflow: hidden;
+    letter-spacing: 1px;
+    min-height: 1.2em;
+    vertical-align: bottom;
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: #F5AFAF; }
+}
+
+.typing-cursor {
+    animation: blink-caret 0.75s step-end infinite;
+}
+
+@media (max-width: 480px) {
+    .typing-text {
+        font-size: 1rem;
+        white-space: normal;
+        border-right: none;
+        animation: fadeInUp 0.8s ease-out forwards;
+    }
+}
+
+/* ---------------------------------------------------------------------------- */
+/* Contenedor principal */
+#loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease, visibility 0.5s;
+}
+
+.loader {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Circulo */
+.loader-circle {
+    width: 120px;
+    height: 120px;
+    border: 3px solid var(--color-2);
+    border-top: 3px solid var(--color-4);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Logo */
+.loader-logo {
+    position: absolute;
+    width: 60px;
+    height: auto;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; }
+}
+
+/* Ocultar el loader */
+.loader-hidden {
+    opacity: 0;
+    visibility: hidden;
 }
