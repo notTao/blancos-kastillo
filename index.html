@@ -27,6 +27,10 @@
         </div>
     </div>
 
+    <button id="theme-toggle" class="theme-btn">
+        <i data-lucide="moon" id="theme-icon"></i>
+    </button>
+
     <div class="glass-card">
         <header class="animate delay-1">
             <img src="/images/logo2.png" alt="Logo Blancos Kastillo" class="main-logo">
@@ -36,10 +40,8 @@
         <div class="divider animate delay-2"></div>
 
         <section class="info animate delay-3">
-            <section class="info animate delay-3">
-                <h2><span id="typing-text" class="typing-text">Estamos renovando tu descanso</span></h2>
-                <p>Muy pronto podrás disfrutar de nuestra nueva tienda en línea con lo mejor para tu hogar.</p>
-            </section>
+            <h2><span id="typing-text" class="typing-text">Estamos renovando tu descanso</span></h2>
+            <p>Muy pronto podrás disfrutar de nuestra nueva tienda en línea con lo mejor para tu hogar.</p>
             
             <section class="newsletter">
                 <p>¿Quieres ser el primero en conocer nuestras ofertas de apertura?</p>
@@ -79,26 +81,26 @@
             
             <div class="map-container">
                 <iframe title="googlemaps"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15112.556276767562!2d-102.2038753!3d17.9620389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x84315c6fd9413773%3A0x29a00947f6a77126!2zTMOhemFybyBDw6FyZGVuYXMsIE1pY2gu!5e0!3m2!1ses-419!2smx!4v1708380000000!5m2!1ses-419!2smx" 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3780.258941!2d-102.195!3d17.96!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTfCsDU3JzM2LjAiTiAxMDLCsDExJzQyLjAiVw!5e0!3m2!1ses!2smx!4v1611234567890!5m2!1ses!2smx" 
                     width="100%" 
-                    height="350" 
-                    style="border:0;" 
+                    height="300" 
+                    style="border:0; border-radius: 15px;" 
                     allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
+                    loading="lazy">
                 </iframe>
             </div>
         </section>
-    </div>
 
-    <button class="admin-btn animate delay-5" onclick="openLogin()">
-        <i data-lucide="lock"></i> Admin
-    </button>
-
-        <button id="theme-toggle" class="theme-btn">
-        <i data-lucide="moon" id="theme-icon"></i>
-    </button>
-
+        <footer class="main-footer animate delay-5">
+            <div class="footer-content">
+                <p>© <span id="year"></span> **Blancos Kastillo**. Todos los derechos reservados.</p>
+                <p class="footer-location">Lázaro Cárdenas, Michoacán, México</p>
+            </div>
+        </footer>
+            </div> <button class="admin-btn animate delay-5" onclick="openLogin()">
+                <i data-lucide="lock"></i> Admin
+            </button>
+    
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <h3>Acceso Administrativo</h3>
