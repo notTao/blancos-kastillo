@@ -112,7 +112,7 @@ function typeEffect() {
 
 /* ---------------------------------------------------------------------------- */
 
-// Preloader
+//* Preloader
 document.addEventListener('DOMContentLoaded', typeEffect);
 
 window.addEventListener('load', () => {
@@ -122,3 +122,52 @@ window.addEventListener('load', () => {
         loader.classList.add('loader-hidden');
     }, 500);
 });
+
+/* ---------------------------------------------------------------------------- */
+
+//* Modo Oscuro / Modo Claro
+const themeToggle = document.getElementById('theme-toggle');
+const themeIcon = document.getElementById('theme-icon');
+const currentTheme = localStorage.getItem('theme');
+
+if (currentTheme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    themeIcon.setAttribute('data-lucide', 'sun');
+}
+
+themeToggle.addEventListener('click', () => {
+    let theme = document.documentElement.getAttribute('data-theme');
+    
+    if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+        themeIcon.setAttribute('data-lucide', 'moon');
+    } else {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        themeIcon.setAttribute('data-lucide', 'sun');
+    }
+
+    lucide.createIcons();
+});
+
+/* ---------------------------------------------------------------------------- */
+
+//* Share website
+function shareSite() {
+    const shareData = {
+        title: 'Blancos Kastillo 🏠',
+        text: '¡Hola! Mira lo nuevo que viene para el hogar en Lázaro Cárdenas. Renueva tu descanso con Blancos Kastillo. ✨🛌',
+        url: window.location.href
+    };
+
+    if (navigator.share) {
+        navigator.share(shareData)
+            .then(() => console.log('Contenido compartido con éxito'))
+            .catch((error) => console.log('Error al compartir:', error));
+    } else {
+        // Fallback para computadoras
+        navigator.clipboard.writeText(window.location.href);
+        alert("¡Enlace copiado! Ya puedes pegarlo en WhatsApp para invitar a tus amigos. 😊");
+    }
+}
