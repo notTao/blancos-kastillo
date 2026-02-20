@@ -10,12 +10,20 @@
     
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
 </head>
 <body>
     <div id="loader-wrapper">
         <div class="loader">
             <div class="loader-circle"></div>
             <img src="images/logo.png" alt="Cargando..." class="loader-logo">
+            <p class="loader-text">Cargando comodidad...</p>
         </div>
     </div>
 
@@ -56,6 +64,13 @@
             </a>
         </nav>
 
+        <div class="share-container animate delay-5">
+            <p>¿Conoces a alguien que necesite renovar su descanso?</p>
+            <button onclick="shareSite()" class="share-btn">
+                <i data-lucide="share-2"></i> Compartir esta página
+            </button>
+        </div>
+
         <section class="location-section animate delay-5">
             <div class="location-info">
                 <h3><i data-lucide="map-pin"></i> Visítanos en Lázaro Cárdenas</h3>
@@ -78,6 +93,10 @@
 
     <button class="admin-btn animate delay-5" onclick="openLogin()">
         <i data-lucide="lock"></i> Admin
+    </button>
+
+        <button id="theme-toggle" class="theme-btn">
+        <i data-lucide="moon" id="theme-icon"></i>
     </button>
 
     <div id="loginModal" class="modal">
