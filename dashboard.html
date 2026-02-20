@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Blancos Kastillo</title>
+
+    <link rel="apple-touch-icon" href="images/logo.png">
+    <link rel="shortcut icon" sizes="192x192" href="images/logo.png">
+
+    <link rel="stylesheet" href="style-dashboard.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        if (localStorage.getItem('adminLoggedIn') !== 'true') {
+            window.location.href = 'index.html';
+        }
+    </script>
+</head>
+<body class="dashboard-body">
+    <div class="glass-card admin-card animate delay-1">
+        <header class="dashboard-header">
+            <div class="header-main">
+                <img src="images/logo.png" alt="Logo" class="dashboard-logo">
+                <h1>Panel de Control</h1>
+            </div>
+            <button onclick="logout()" class="logout-btn">
+                <i data-lucide="log-out"></i> Salir
+            </button>
+        </header>
+
+        <section class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-value">124</span>
+                <span class="stat-label">Registros totales</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">Hoy</span>
+                <span class="stat-label">Última actividad</span>
+            </div>
+        </section>
+
+        <section class="table-container">
+            <h3><i data-lucide="users"></i> Clientes Interesados</h3>
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Correo Electrónico</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>20/02/2026</td>
+                        <td>ejemplo@correo.com</td>
+                        <td><span class="badge">Nuevo</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <button class="download-btn" onclick="exportTableToCSV()">
+            <i data-lucide="download"></i> Exportar a Excel (CSV)
+        </button>
+    </div>
+    
+    <script type="module" src="script.js"></script>
+    <script type="module" src="dashboard.js"></script>
+
+    <script>
+        lucide.createIcons();
+        function logout() {
+            localStorage.removeItem('adminLoggedIn');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
