@@ -3,44 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blancos Kastillo</title>
+    <title>Blancos Kastillo | Próximamente</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 
-    <main class="container">
+    <div class="glass-card">
         <header>
-            <span class="status-badge">En Remodelación</span>
-            <h1 class="logo">Blancos <span>Kastillo</span></h1>
-            <div class="divider"></div>
+            <img src="/images/logo2.png" alt="Logo Blancos Kastillo" class="main-logo">
+            <p class="tagline">Lázaro Cárdenas, Michoacán</p>
         </header>
 
-        <section class="content">
+        <div class="divider"></div>
+
+        <section class="info">
             <h2>Estamos renovando tu descanso</h2>
-            <p>Trabajamos para ofrecerte la mejor experiencia en blancos y artículos para el hogar. Muy pronto podrás comprar en línea.</p>
+            <p>Muy pronto podrás disfrutar de nuestra nueva tienda en línea con lo mejor para tu hogar.</p>
+            <section class="newsletter">
+                <p>¿Quieres ser el primero en conocer nuestras ofertas de apertura?</p>
+                <form action="https://formspree.io/f/xkovvznn" method="POST" class="form-container">
+                    <input type="email" name="email" placeholder="Tu correo electrónico" required>
+                    <button type="submit">Avisarme</button>
+                </form>
+
+                <div id="response-msg" class="response-msg">
+                    <i data-lucide="check-circle"></i>
+                    <span>¡Gracias! Te avisaremos muy pronto.</span>
+                </div>
+            </section>
         </section>
 
-        <section class="social-contact">
-            <p>¿Necesitas algo ahora? Contáctanos:</p>
-            <div class="buttons-row">
-                <a href="https://wa.me/5217531592580" class="btn whatsapp" target="_blank">
-                    <i data-lucide="message-circle"></i> WhatsApp
-                </a>
-                <a href="https://www.facebook.com/kastilloblancos" class="btn facebook" target="_blank">
-                    <i data-lucide="facebook"></i> Facebook
-                </a>
-            </div>
-        </section>
-        
-        <footer class="footer">
-            <p>&copy; 2026 Blancos Kastillo. Todos los derechos reservados.</p>
-        </footer>
-    </main>
+        <nav class="links">
+            <a href="https://wa.me/5217531592580" target="_blank" class="link-item">
+                <i data-lucide="message-circle"></i> WhatsApp
+            </a>
+            <a href="contacto@blancoskastillo.store" class="link-item">
+                <i data-lucide="mail"></i> Email
+            </a>
+        </nav>
+    </div>
+
+    <button class="admin-btn" onclick="openLogin()">
+    <i data-lucide="lock"></i> Admin
+</button>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <h3>Acceso Administrativo</h3>
+            <input type="password" id="adminPass" placeholder="Contraseña">
+            <button onclick="checkPass()">Entrar</button>
+            <p id="error-msg" style="color: #F5AFAF; display: none; margin-top: 10px; font-size: 0.8rem;">Contraseña incorrecta</p>
+            <button class="close-btn" onclick="closeLogin()">Cancelar</button>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+        <script>
+        lucide.createIcons();
+        </script>
+    </body>
 
     <script>
-      lucide.createIcons();
+        lucide.createIcons();
     </script>
 </body>
-
 </html>
